@@ -2287,6 +2287,12 @@ mod tests {
 	use frame_system::offchain::CreateSignedTransaction;
 
 	#[test]
+	fn transfer() {
+		let t = Call::System(frame_system::Call::remark(vec![1, 2, 3])).encode();
+		println!("t: {:?}", t);
+	}
+
+	#[test]
 	fn validate_transaction_submitter_bounds() {
 		fn is_submit_signed_transaction<T>()
 		where
@@ -2319,10 +2325,14 @@ mod tests {
 			) > 0
 		);
 	}
-}
 
-#[test]
-fn transfer() {
-	let t = Call::System(frame_system::Call::remark(vec![1, 2, 3])).encode();
-	println!("t: {:?}", t);
+	#[test]
+	fn call_size() {
+		assert!(
+			core::mem::size_of::<Call>() <= 230,
+			"size of Call is more than 230 bytes: some calls have too big arguments, use Box to reduce \
+			 the size of Call.
+		If the limit is too strong, maybe consider increase the limit to 300.",
+		);
+	}
 }
