@@ -19,7 +19,7 @@ RUN make $BUILD_ARGS
 
 # =============
 
-FROM phusion/baseimage:bionic-1.0.0
+FROM phusion/baseimage:focal-1.2.0
 LABEL maintainer="hello@acala.network"
 
 ARG PROFILE
