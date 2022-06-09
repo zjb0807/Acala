@@ -22,7 +22,7 @@ jobs:
     needs: clean-up-actions
     strategy:
       matrix:
-        network: [mandala, karura, acala]
+        network: [mandala]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -49,6 +49,8 @@ jobs:
             type=ref,event=branch
             type=ref,event=pr
             type=sha
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
